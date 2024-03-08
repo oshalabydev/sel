@@ -178,7 +178,7 @@ If `print` is the function name:
 
 So `sel_print` is used instead, and registered as `print`.
 
-**Note**: Underscores are not allowed in function/label names.
+**Note**: Underscores are not allowed in function/label names in SEL.
 
 Functions can also be variadic:
 
@@ -223,6 +223,7 @@ Get area of a circle
 (print "Result:")
 (square $radius)
 (mul $pi $)
+(print $)
 ```
 
 ### Eval
