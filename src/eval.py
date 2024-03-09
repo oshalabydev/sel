@@ -1,5 +1,5 @@
-from sel.functions import functions as sel_funcs
-from sel.lexer import labels
+from sel.src.functions import functions as sel_funcs
+from sel.src.lexer import labels
 
 def sel_eval(expressions):
   values = []

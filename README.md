@@ -3,7 +3,7 @@
 
 ## Introduction
 
-Simple Expression Language (or SEL) is a minimal and tiny language. It consists of expressions enclosed in parenthesis linearly arranged without nesting. The expressions may contain constants, function calls and pointers - they _point_ (refer) to other expressions.
+Simple Expression Language (or SEL) is a minimal and tiny language. It consists of expressions enclosed in parenthesis linearly arranged without nesting. The expressions are similar in syntax to LISP s-expressions. They may contain constants, function calls and pointers - they _point_ (refer) to other expressions.
 
 ```
 (sum 1 1)(mul $ 2)
@@ -63,6 +63,18 @@ print(out) # -> 14
 ```
 
 More information on the SEL language and the SEL Python API can be found in the [wiki](https://github.com/oshalabydev/sel/wiki).
+
+## Examples
+
+Examples are serve as a nice introduction to the SEL language. By takin a look at them, you get an idea of the capabilities of SEL, and how it could be used.
+
+Examples are located in `examples` folder, you can try them out. For example, you can try the `getarea` example (which gets the area of a circle provided a radius) with:
+
+```sh
+$ python -m sel.examples.getarea
+```
+
+You can contribute and add more examples if you want.
 
 <hr>
 <p align="center"><em>Contribution is highly appreciated</em></p>

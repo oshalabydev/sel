@@ -1,5 +1,5 @@
-import sel.lexer as sel_lexer
-import sel.eval as sel_eval
+import sel.src.lexer as sel_lexer
+import sel.src.eval as sel_eval
 
 def eval(input):
   sel_lexer.sel_validate_before_tokenizer(input)
