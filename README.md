@@ -55,6 +55,8 @@ The example above uses the built-in function `print`, however, `print` doesn't r
 
 The SEL interpreter (i.e. `sel.eval`) always returns the value of the last expression. Since `print` doesn't return anything, `sel.eval` returns $0$.
 
+Another example (without `print`):
+
 ```py
 out = sel.eval("(12)(sum $ 2)")
 print(out) # -> 14
