@@ -109,11 +109,11 @@ def sel_tokenize(input):
       char = string[current]
 
       while (char != quote_style or string[current-1] == "\\"):
-        if (char == "\\"):
+        if (char == "\\" and string[current+1] == quote_style):
           current += 1
           char = string[current]
           continue
-
+          
         value.append(char)
         current += 1
         char = string[current]
