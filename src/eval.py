@@ -62,12 +62,12 @@ def sel_eval(expressions):
           if arg_expr["type"] == "pointer":
             if arg_expr["mode"] == "relative":
               if arg_expr["offset"] <= len(values):
-                args.append(values[-1 - (arg_expr["offset"]-1)])
+                args.append({ "expand": arg_expr["expand"], "value": values[-1 - (arg_expr["offset"]-1)] })
               else:
                 raise Exception("[SEL] Error: Invalid reference; expression doesn't exist")
             elif arg_expr["mode"] == "absolute":
               if arg_expr["pos"] >= 0 and arg_expr["pos"] < len(values):
-                args.append(values[arg_expr["pos"]])
+                args.append({ "expand": arg_expr["expand"], "value": values[arg_expr["pos"]] })
               else:
                 raise Exception("[SEL] Error: Invalid reference; expression doesn't exist")
             elif arg_expr["mode"] == "label":
@@ -75,7 +75,7 @@ def sel_eval(expressions):
               if pos == None:
                 raise Exception("[SEL] Error: Invalid reference; expression doesn't exist")
               if pos >= 0 and pos < len(values):
-                args.append(values[pos])
+                args.append({ "expand": arg_expr["expand"], "value": values[pos] })
               else:
                 raise Exception("[SEL] Error: Invalid reference; expression doesn't exist")
           elif arg_expr["type"] == "number":
@@ -98,8 +98,11 @@ def sel_eval(expressions):
 
 def flatten_args(args):
   for i, _ in enumerate(args):
-    if type(args[i]) is tuple:
-      args[i] = list(args[i])
+    if type(args[i]) is dict:
+      if args[i]["expand"] and type(args[i]["value"]) is tuple:
+        args[i] = list(args[i]["value"])
+      else:
+        args[i] = args[i]["value"]
   
   flat = []
   for xs in args:
