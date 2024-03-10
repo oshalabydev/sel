@@ -62,7 +62,7 @@ def sel_eval(expressions):
           if arg_expr["type"] == "pointer":
             if arg_expr["mode"] == "relative":
               if arg_expr["offset"] <= len(values):
-                args.append(values[-1 - (arg_expr["offset"]-1)])
+                args.append({values[-1 - (arg_expr["offset"]-1)]})
               else:
                 raise Exception("[SEL] Error: Invalid reference; expression doesn't exist")
             elif arg_expr["mode"] == "absolute":
@@ -85,7 +85,8 @@ def sel_eval(expressions):
               args.append(float(arg_expr["value"]))
           else:
             args.append(arg_expr["value"])
-
+        
+        args = flatten_args(args) # for functions to handle list arguments
         ret = function["func"](*args)
         
         if ret == None:
@@ -94,3 +95,18 @@ def sel_eval(expressions):
         values.append(ret)
   
   return values
+
+def flatten_args(args):
+  for i, _ in enumerate(args):
+    if type(args[i]) is tuple:
+      args[i] = list(args[i])
+  
+  flat = []
+  for xs in args:
+    if type(xs) is list:
+      for x in xs:
+        flat.append(x)
+      continue
+    flat.append(xs)
+  
+  return flat

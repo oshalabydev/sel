@@ -43,10 +43,11 @@ def sel_tokenize(input):
       current += 1
       continue
 
-    if char == "$":
+    if char == "$" or char == "%":
       offset = 1
 
       if (string[current+1] == "-" or string[current+1] == "+") and string[current+2].isnumeric():
+        expand = True if char == "%" else False
         absolute = True if string[current+1] == "+" else False
         value = []
         current += 2
@@ -56,11 +57,12 @@ def sel_tokenize(input):
           current += 1
         
         if absolute:
-          tokens.append({ "type": "pointer", "mode": "absolute", "pos": int("".join(value)) })
+          tokens.append({ "type": "pointer", "mode": "absolute", "expand": expand, "pos": int("".join(value)) })
         else:
           offset += int("".join(value))
-          tokens.append({ "type": "pointer", "mode": "relative", "offset": offset })
+          tokens.append({ "type": "pointer", "mode": "relative", "expand": expand, "offset": offset })
       elif string[current+1].isalpha():
+        expand = True if char == "%" else False
         value = []
         current += 1
 
@@ -68,10 +70,11 @@ def sel_tokenize(input):
           value.append(string[current])
           current += 1
         
-        tokens.append({ "type": "pointer", "mode": "label", "label": "".join(value) })
+        tokens.append({ "type": "pointer", "mode": "label", "expand": expand, "label": "".join(value) })
       else:
+        expand = True if char == "%" else False
         current += 1
-        tokens.append({ "type": "pointer", "mode": "relative", "offset": offset })
+        tokens.append({ "type": "pointer", "mode": "relative", "expand": expand, "offset": offset })
 
       continue
 
