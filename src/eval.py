@@ -62,7 +62,7 @@ def sel_eval(expressions):
           if arg_expr["type"] == "pointer":
             if arg_expr["mode"] == "relative":
               if arg_expr["offset"] <= len(values):
-                args.append({values[-1 - (arg_expr["offset"]-1)]})
+                args.append(values[-1 - (arg_expr["offset"]-1)])
               else:
                 raise Exception("[SEL] Error: Invalid reference; expression doesn't exist")
             elif arg_expr["mode"] == "absolute":
